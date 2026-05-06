@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>JokeVerse - Jokes Viewer</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-950 text-white min-h-screen font-sans">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-gray-900 border-b border-gray-800 shadow-lg">
+
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+      <div>
+
+        <h1 class="text-3xl font-bold text-yellow-400">
+          😂 JokeVerse
+        </h1>
+
+        <p class="text-gray-400 text-sm mt-1">
+          Professional Jokes Viewer Application
+        </p>
+
+      </div>
+
+      <button
+        onclick="loadJokes()"
+        class="bg-yellow-400 text-black px-5 py-2 rounded-xl font-semibold hover:bg-yellow-300 transition"
+      >
+        Refresh Jokes
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- HERO -->
+  <section class="bg-gradient-to-r from-yellow-500 to-orange-500 py-20">
+
+    <div class="max-w-5xl mx-auto px-6 text-center">
+
+      <h2 class="text-5xl md:text-6xl font-bold text-black">
+        Laugh Unlimited 😂
+      </h2>
+
+      <p class="mt-6 text-xl text-black/80">
+        Browse hilarious random jokes powered by FreeAPI
+      </p>
+
+      <!-- SEARCH -->
+      <div class="mt-10 flex justify-center">
+
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search jokes..."
+          class="w-full max-w-2xl px-5 py-4 rounded-2xl text-black text-lg focus:outline-none focus:ring-4 focus:ring-yellow-200"
+        />
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- RANDOM JOKE -->
+  <section class="max-w-5xl mx-auto px-6 mt-14">
+
+    <div
+      class="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-3xl p-10 shadow-2xl text-center"
+    >
+
+      <h2 class="text-3xl font-bold text-black mb-6">
+        🎲 Joke Generator
+      </h2>
+
+      <p
+        id="featured-joke"
+        class="text-2xl text-black leading-relaxed font-semibold"
+      >
+        Click below to generate a random joke
+      </p>
+
+      <button
+        onclick="generateFeaturedJoke()"
+        class="mt-8 bg-black text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
+      >
+        Generate Random Joke
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- USER CUSTOM JOKE -->
+  <section class="max-w-5xl mx-auto px-6 mt-12">
+
+    <div
+      class="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-xl"
+    >
+
+      <h2
+        class="text-3xl font-bold text-yellow-400 text-center mb-6"
+      >
+        ✨ Generate Joke From Your Words
+      </h2>
+
+      <div class="flex flex-col md:flex-row gap-4">
+
+        <input
+          id="custom-input"
+          type="text"
+          placeholder="Enter words like coding teacher exam..."
+          class="flex-1 px-5 py-4 rounded-xl text-black text-lg"
+        />
+
+        <button
+          onclick="generateCustomJoke()"
+          class="bg-yellow-400 text-black px-6 py-4 rounded-xl font-semibold hover:bg-yellow-300 transition"
+        >
+          Generate Joke
+        </button>
+
+      </div>
+
+      <div
+        class="mt-8 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl p-8 text-center"
+      >
+
+        <p
+          id="custom-joke-output"
+          class="text-2xl text-black font-semibold leading-relaxed"
+        >
+          Your generated joke will appear here...
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CATEGORY FILTERS -->
+  <section class="max-w-7xl mx-auto px-6 mt-12">
+
+    <div class="flex flex-wrap gap-4 justify-center">
+
+      <button
+        onclick="filterJokes('all', this)"
+        class="filter-btn active-filter px-5 py-2 rounded-full font-semibold transition"
+      >
+        All
+      </button>
+
+      <button
+        onclick="filterJokes('funny', this)"
+        class="filter-btn px-5 py-2 rounded-full font-semibold transition"
+      >
+        Funny
+      </button>
+
+      <button
+        onclick="filterJokes('school', this)"
+        class="filter-btn px-5 py-2 rounded-full font-semibold transition"
+      >
+        School
+      </button>
+
+      <button
+        onclick="filterJokes('coding', this)"
+        class="filter-btn px-5 py-2 rounded-full font-semibold transition"
+      >
+        Coding
+      </button>
+
+      <button
+        onclick="filterJokes('animals', this)"
+        class="filter-btn px-5 py-2 rounded-full font-semibold transition"
+      >
+        Animals
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- LOADING -->
+  <section class="max-w-7xl mx-auto px-6 mt-8">
+
+    <p
+      id="loading"
+      class="hidden text-center text-2xl font-bold text-yellow-300"
+    >
+      Loading jokes...
+    </p>
+
+  </section>
+
+  <!-- JOKES GRID -->
+  <main class="max-w-7xl mx-auto px-6 py-14">
+
+    <div
+      id="jokes-container"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    ></div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
+
+    © 2026 JokeVerse | Built using FreeAPI Random Jokes Endpoint
+
+  </footer>
+
+  <!-- STYLE -->
+  <style>
+
+    .filter-btn {
+      background-color: #1f2937;
+      color: white;
+    }
+
+    .filter-btn:hover {
+      background-color: #374151;
+    }
+
+    .active-filter {
+      background-color: #facc15 !important;
+      color: black !important;
+    }
+
+  </style>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
