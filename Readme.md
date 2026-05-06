@@ -10,15 +10,10 @@ It also includes custom joke generation, category filtering, search functionalit
 
 # 🚀 Live Deployment
 
-Deployment Link: https://your-jokeverse-app.vercel.app
+Deployment Link: https://free-api-jokes-listing-application.netlify.app/
 
 ---
 
-# 📂 GitHub Repository
-
-GitHub Repository Link: https://github.com/your-username/jokeverse
-
----
 
 # ✨ Features
 
